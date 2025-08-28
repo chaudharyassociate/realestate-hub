@@ -1,0 +1,47 @@
+{
+  "name": "cid-copilot",
+  "version": "1.0.0",
+  "description": "A monorepo for AI-powered copilot applications with cybersecurity and pentesting tools",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter cid-app dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:build": "docker compose build",
+    "install:all": "pnpm install",
+    "start": "pnpm --filter cid-app start"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.17"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaudharyassociate/realestate-hub.git"
+  },
+  "keywords": [
+    "monorepo",
+    "ai",
+    "copilot",
+    "cybersecurity",
+    "pentesting",
+    "langchain",
+    "llm"
+  ],
+  "author": "Chaudhary Associate",
+  "license": "MIT"
+}

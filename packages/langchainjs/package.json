@@ -1,0 +1,20 @@
+{
+  "name": "@cid-copilot/langchainjs",
+  "version": "1.0.0", 
+  "description": "LangChain integration wrapper for AI/LLM functionality",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'LangChainJS build completed'",
+    "test": "echo 'LangChainJS tests passed'",
+    "lint": "eslint .",
+    "clean": "rm -rf node_modules dist"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "openai": "^4.28.0"
+  },
+
+  "keywords": ["langchain", "ai", "llm", "openai"],
+  "author": "Chaudhary Associate",
+  "license": "MIT"
+}

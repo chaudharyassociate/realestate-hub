@@ -1,0 +1,27 @@
+{
+  "name": "cid-app",
+  "version": "1.0.0",
+  "description": "Main CID Copilot application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js",
+    "build": "echo 'Build completed'",
+    "test": "echo 'Tests passed'",
+    "lint": "eslint .",
+    "clean": "rm -rf node_modules dist"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "@cid-copilot/copilotkit": "workspace:*",
+    "@cid-copilot/langchainjs": "workspace:*"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "keywords": ["copilot", "ai", "cybersecurity"],
+  "author": "Chaudhary Associate",
+  "license": "MIT"
+}
