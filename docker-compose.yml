@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # Main CID Copilot Application
+  cid-app:
+    build: 
+      context: ./apps/cid-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - GPT_OSS_ENDPOINT=http://gpt-oss:8001
+      - LLAMA3_ENDPOINT=http://llama3:8002
+      - QWEN3_ENDPOINT=http://qwen3:8003
+      - SNIPER_ENDPOINT=http://sniper:8080
+      - RECONNESS_ENDPOINT=http://reconness:80
+      - NODEGOAT_ENDPOINT=http://nodegoat:4000
+    depends_on:
+      - gpt-oss
+      - llama3
+      - qwen3
+      - sniper
+    networks:
+      - cid-network
+
+  # AI Model Services
+  gpt-oss:
+    build: 
+      context: ./docker/gpt-oss
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    networks:
+      - cid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  llama3:
+    build:
+      context: ./docker/llama3
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    networks:
+      - cid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  qwen3:
+    build:
+      context: ./docker/qwen3
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8003"
+    networks:
+      - cid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Cybersecurity Tools
+  sniper:
+    build:
+      context: ./docker/sniper
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - cid-network
+    privileged: true  # Required for pentesting tools
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+  nodegoat:
+    build:
+      context: ./docker/nodegoat
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    networks:
+      - cid-network
+    environment:
+      - NODE_ENV=development
+
+  reconness:
+    build:
+      context: ./docker/reconness
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    networks:
+      - cid-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+networks:
+  cid-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  sniper_data:
+  reconness_data:
